@@ -21,5 +21,5 @@ public:
 	virtual void BeginPlay() override;
 
 private:
-	ATank * PossessedTank;
+	ATank * PossessedTank = nullptr;
 };

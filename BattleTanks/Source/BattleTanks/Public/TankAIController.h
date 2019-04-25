@@ -3,6 +3,8 @@
 #pragma once
 
 #include "Public\Tank.h"
+#include "Engine\Classes\Engine\World.h"
+#include "GameFramework/PlayerController.h"
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "TankAIController.generated.h"
@@ -18,10 +20,12 @@ class BATTLETANKS_API ATankAIController : public AAIController
 public:
 	virtual void BeginPlay();
 
-	ATank * GetAIControlledTank() const;
-
 private:
 
+	ATank * GetAIControlledTank() const;
+
 	ATank * PossessedAITank;
+
+	ATank * GetPlayerTank() const;
 
 };
