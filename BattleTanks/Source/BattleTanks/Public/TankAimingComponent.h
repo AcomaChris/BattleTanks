@@ -2,7 +2,9 @@
 
 #pragma once
 
-#include "Engine\Classes\GameFramework\Actor.h"
+#include "Engine/Classes/GameFramework/Actor.h"
+#include "Engine/Classes/Components/StaticMeshComponent.h"
+#include "Engine/Classes/Kismet/GameplayStatics.h"
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
@@ -23,7 +25,9 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	// Aim at a place in world space
-	void AimAt(FVector WorldSpaceAim);
+	void AimAt(FVector WorldSpaceAim, float LaunchSpeed);
+
+	// TODO Add SetTurretReference
 
 protected:
 	// Called when the game starts
@@ -32,5 +36,8 @@ protected:
 private:
 	// Barrel variable
 	UStaticMeshComponent * Barrel = nullptr;
+
+	// Move the barrel to the correct location
+	void MoveBarrelTowards(FVector AimDirection);
 
 };

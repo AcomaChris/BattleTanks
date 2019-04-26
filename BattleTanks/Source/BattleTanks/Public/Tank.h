@@ -33,4 +33,8 @@ protected:
 	virtual void BeginPlay() override;
 
 	UTankAimingComponent * TankAimingComponent = nullptr;
+
+private:
+	UPROPERTY(EditAnywhere, Category = Firing)
+	float LaunchSpeed = 100000.0f; // 1,000 m/s
 };
