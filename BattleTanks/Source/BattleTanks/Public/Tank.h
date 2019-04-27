@@ -8,6 +8,7 @@
 
 // Forward declarations
 class UTankBarrel;
+class UTankTurret;
 class UTankAimingComponent;
 
 UCLASS()
@@ -22,6 +23,10 @@ public:
 	// Sets the barrel mesh reference
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetBarrelReference(UTankBarrel * BarrelToSet);
+
+	// Sets the turret mesh reference
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void SetTurretReference(UTankTurret * BarrelToSet);
 
 	void AimAt(FVector HitLocation);
 

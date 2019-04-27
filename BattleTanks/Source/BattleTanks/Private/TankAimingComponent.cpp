@@ -3,6 +3,7 @@
 
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "Engine/Classes/Kismet/GameplayStatics.h"
 
 // Sets default values for this component's properties
@@ -34,7 +35,14 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
 {
+	if (!BarrelToSet) { return; }
 	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
+{
+	if (!TurretToSet) { return; }
+	Turret = TurretToSet;
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
@@ -71,7 +79,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		// Log out the aim solution
 		auto Time = GetWorld()->GetTimeSeconds();
 		auto TankName = GetOwner()->GetName();
-		UE_LOG(LogTemp, Warning, TEXT("%s - %f: Aim solution found."), *TankName, Time);
+		//UE_LOG(LogTemp, Warning, TEXT("%s - %f: Aim solution found."), *TankName, Time);
 
 	}
 	else
@@ -79,17 +87,26 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		// If we don't find an aim solution, log it out
 		auto Time = GetWorld()->GetTimeSeconds();
 		auto TankName = GetOwner()->GetName();
-		UE_LOG(LogTemp, Warning, TEXT("%s - %f: Aim solution NOT found."), *TankName, Time);
+		//UE_LOG(LogTemp, Warning, TEXT("%s - %f: Aim solution NOT found."), *TankName, Time);
 	}
 
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
-	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
-	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
-	Barrel->Elevate(DeltaRotator.Pitch); // TODO remove magic number
+	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
+	auto BarrelDeltaRotator = AimAsRotator - BarrelRotator;
+	Barrel->Elevate(BarrelDeltaRotator.Pitch);
+
+	auto TurretRotator = Turret->GetForwardVector().Rotation();
+	auto TurretDeltaRotator = AimAsRotator - TurretRotator;
+	Turret->Rotate(TurretDeltaRotator.Yaw);
+
+	// LOTS OF DEBUG
+	auto Time = GetWorld()->GetTimeSeconds();
+	auto TankName = GetOwner()->GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%f | %s || FWD_V: %s | DLTA V: %f | "), Time, *TankName, *TurretRotator.ToString(), TurretDeltaRotator.Yaw);
 }
 

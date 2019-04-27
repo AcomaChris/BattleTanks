@@ -9,6 +9,7 @@
 
 // Forward Declaration
 class UTankBarrel;
+class UTankTurret;
 
 // Holds barrel's properties and elevate methods
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -21,6 +22,7 @@ public:
 	UTankAimingComponent();
 
 	void SetBarrelReference(UTankBarrel * BarrelToSet);
+	void SetTurretReference(UTankTurret * TurretToSet);
 
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
@@ -28,15 +30,14 @@ public:
 	// Aim at a place in world space
 	void AimAt(FVector WorldSpaceAim, float LaunchSpeed);
 
-	// TODO Add SetTurretReference
-
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 private:
-	// Barrel variable
+	// Barrel and turret variables
 	UTankBarrel * Barrel = nullptr;
+	UTankTurret * Turret = nullptr;
 
 	// Move the barrel to the correct location
 	void MoveBarrelTowards(FVector AimDirection);
