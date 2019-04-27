@@ -55,6 +55,9 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		StartLocation,
 		HitLocation,
 		LaunchSpeed,
+		false,
+		0.0f,
+		0.0f,
 		ESuggestProjVelocityTraceOption::DoNotTrace
 	);
 
@@ -66,14 +69,16 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 		// Log out the aim solution
 		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found."), Time);
+		auto TankName = GetOwner()->GetName();
+		UE_LOG(LogTemp, Warning, TEXT("%s - %f: Aim solution found."), *TankName, Time);
 
 	}
 	else
 	{
 		// If we don't find an aim solution, log it out
 		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution NOT found."), Time);
+		auto TankName = GetOwner()->GetName();
+		UE_LOG(LogTemp, Warning, TEXT("%s - %f: Aim solution NOT found."), *TankName, Time);
 	}
 
 }
