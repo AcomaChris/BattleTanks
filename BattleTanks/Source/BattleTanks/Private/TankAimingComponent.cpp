@@ -2,6 +2,7 @@
 
 
 #include "TankAimingComponent.h"
+#include "TankBarrel.h"
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -13,12 +14,6 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent * BarrelToSet)
-{
-	Barrel = BarrelToSet;
-}
-
-
 // Called when the game starts
 void UTankAimingComponent::BeginPlay()
 {
@@ -28,7 +23,6 @@ void UTankAimingComponent::BeginPlay()
 
 }
 
-
 // Called every frame
 void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -37,7 +31,12 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	// ...
 }
 
-void UTankAimingComponent::AimAt(FVector WorldSpaceAim, float LaunchSpeed)
+void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
+{
+	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
 	// Protect against nullptr in barrel
 	if (!Barrel) { return; }
@@ -54,7 +53,7 @@ void UTankAimingComponent::AimAt(FVector WorldSpaceAim, float LaunchSpeed)
 		this,
 		out_LaunchVelocity,
 		StartLocation,
-		WorldSpaceAim,
+		HitLocation,
 		LaunchSpeed,
 		false,
 		0.0f,
@@ -75,12 +74,10 @@ void UTankAimingComponent::AimAt(FVector WorldSpaceAim, float LaunchSpeed)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
-	// Work out difference between current barrel rotation and aim direction
-	// Move the barrel the right amount this frame, given the max elevation speed and frame time
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
-	UE_LOG(LogTemp, Warning, TEXT("AimAsRotator: %s"), *AimAsRotator.ToString());
+	Barrel->Elevate(5); // TODO remove magic number
 }
 
