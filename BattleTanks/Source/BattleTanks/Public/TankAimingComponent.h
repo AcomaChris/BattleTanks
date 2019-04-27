@@ -3,10 +3,8 @@
 #pragma once
 
 #include "Engine/Classes/GameFramework/Actor.h"
-#include "Engine/Classes/Components/StaticMeshComponent.h"
-#include "Engine/Classes/Kismet/GameplayStatics.h"
-#include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "CoreMinimal.h"
 #include "TankAimingComponent.generated.h"
 
 // Forward Declaration
