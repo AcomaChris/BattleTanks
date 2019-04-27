@@ -91,8 +91,6 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto TurretDeltaRotator = AimAsRotator - TurretRotator;
 	Turret->Rotate(TurretDeltaRotator.Yaw);
 
-	// LOTS OF DEBUG
-	auto Time = GetWorld()->GetTimeSeconds();
-	auto TankName = GetOwner()->GetName();
+	// TODO figure out why AI turret isn't turning around properly
 }
 

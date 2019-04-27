@@ -35,13 +35,13 @@ private:
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 
 	// Crosshair setup values
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	float CrossHairXLocation = 0.5f;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	float CrossHairYLocation = 1.0f / 3.0f;
 
 	// Line trace variables; set to 10km by default
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000.0f;
 
 	// Line trace functions
