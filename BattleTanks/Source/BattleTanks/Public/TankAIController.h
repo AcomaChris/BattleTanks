@@ -24,10 +24,6 @@ public:
 
 private:
 
-	ATank * GetAIControlledTank() const;
-
-	ATank * PossessedAITank;
-
-	ATank * GetPlayerTank() const;
+	//ATank * PossessedAITank;
 
 };
