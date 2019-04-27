@@ -75,19 +75,6 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		// Find an aim solution
 		auto AimDirection = out_LaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
-
-		// Log out the aim solution
-		auto Time = GetWorld()->GetTimeSeconds();
-		auto TankName = GetOwner()->GetName();
-		//UE_LOG(LogTemp, Warning, TEXT("%s - %f: Aim solution found."), *TankName, Time);
-
-	}
-	else
-	{
-		// If we don't find an aim solution, log it out
-		auto Time = GetWorld()->GetTimeSeconds();
-		auto TankName = GetOwner()->GetName();
-		//UE_LOG(LogTemp, Warning, TEXT("%s - %f: Aim solution NOT found."), *TankName, Time);
 	}
 
 }
@@ -107,6 +94,5 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	// LOTS OF DEBUG
 	auto Time = GetWorld()->GetTimeSeconds();
 	auto TankName = GetOwner()->GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%f | %s || FWD_V: %s | DLTA V: %f | "), Time, *TankName, *TurretRotator.ToString(), TurretDeltaRotator.Yaw);
 }
 
