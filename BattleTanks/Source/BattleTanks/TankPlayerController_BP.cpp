@@ -8,18 +8,6 @@
 void ATankPlayerController_BP::BeginPlay()
 {
 	Super::BeginPlay();
-
-	ATank * PossessedTank = GetControlledTank();
-
-	if (!PossessedTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("PlayerController not possessing a tank."));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Found possessed tank: %s"), *(PossessedTank->GetName()));
-	}
-
 }
 
 // Called every frame
